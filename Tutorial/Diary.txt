@@ -1,0 +1,101 @@
+﻿								HTTP (HyperText Transfer Protocol) 
+	Este un protocol de comunicație folosit pentru transferul de informații pe web. Este modul prin care 
+browserul tău (clientul) comunică cu un server pentru a cere sau trimite date.
+
+Pe scurt:
+HyperText = text care conține linkuri către alte pagini.
+
+Transfer = trimiterea datelor între client și server.
+
+Protocol = un set de reguli care definesc cum are loc comunicarea.
+
+								HTTP vs HTTPS:
+
+HTTP este necriptat (nesigur).
+
+HTTPS este HTTP cu criptare (SSL/TLS), deci datele sunt protejate.
+
+HTTP este 
+	text simplu
+	fara state - nu pastreaza informatii despre client
+
+					API (Application Programming Interface)
+
+	Este o interfață care permite ca două aplicații să comunice între ele. Practic, un API este un set 
+de reguli care definește cum poate un program să interacționeze cu alt program.
+
+Exemplu de gandire
+
+API-ul e ca un chelner într-un restaurant: tu (clientul) ceri ceva, chelnerul (API-ul) duce 
+comanda la bucătărie (serverul) și îți aduce rezultatul înapoi.
+
+Tipuri comune de API-uri:
+
+API-uri Web (cele mai des întâlnite): permit aplicațiilor să comunice prin HTTP (ex: REST, GraphQL).
+
+API-uri Locale: metode oferite de o bibliotecă sau framework (ex: .NET Framework are API-uri pentru 
+lucrul cu fișiere, rețea etc.).
+
+
+											REST (REpresentational State Transfer) 
+
+Este un stil arhitectural folosit la construirea de API-uri web. Nu este un protocol în sine, ci 
+un set de principii și convenții care fac comunicarea între client și server simplă, scalabilă și 
+ușor de înțeles.
+
+Caracteristici principale ale REST:
+
+Stateless (fără stare)
+	Fiecare cerere de la client trebuie să conțină toate informațiile necesare. Serverul
+	nu „tine minte” starea dintre cereri.
+
+Cache-uibil
+	Răspunsurile de la API sunt create în așa fel încât să poată fi stocate în cache, pentru a reduce 
+	timpul de răspuns și a îmbunătăți performanța aplicației.
+
+Layered System (Sistem pe straturi)
+	Arhitectura REST poate avea mai multe straturi (ex: servere proxy, load balancers, gateways), 
+	iar clientul nu trebuie să știe dacă interacționează direct cu serverul final sau cu un intermediar.
+	👉 Asta oferă scalabilitate și flexibilitate.
+
+Uniform Interface (Interfață uniformă)
+
+	Este caracteristica centrală a REST. O interfață comună între client și server simplifică 
+arhitectura și face API-ul ușor de înțeles și utilizat.
+
+Componentele cheie ale acestei constrângeri:
+
+	Identificarea resurselor prin URI-uri
+
+	Manipularea resurselor prin reprezentări (ex: JSON)
+
+	Mesaje auto-descriptive (headers + body)
+
+	HATEOAS (Hypermedia As The Engine Of Application State) – opțională și rar implementată complet
+
+Resurse
+	Totul este văzut ca o resursă: utilizatori, produse, articole etc. Fiecare resursă are un URL unic.
+
+
+Metode HTTP standard
+
+REST folosește metodele HTTP pentru acțiuni:
+
+	GET – pentru citire
+
+	POST – pentru creare
+
+	PUT sau PATCH – pentru actualizare
+
+	DELETE – pentru ștergere
+
+Răspunsuri în format standard
+	De obicei, REST API-urile răspund în format JSON (dar pot fi și XML sau altceva).
+
+Routing-ul în API 
+
+(Mai ales în contextul unui API RESTful) se referă la procesul de a direcționa cererile HTTP 
+către metoda potrivită din codul serverului.
+
+Routing = asocierea unei adrese URL și a unei metode HTTP (ex: GET, POST) cu o funcție sau 
+metodă din controller.
