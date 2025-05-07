@@ -99,3 +99,49 @@ către metoda potrivită din codul serverului.
 
 Routing = asocierea unei adrese URL și a unei metode HTTP (ex: GET, POST) cu o funcție sau 
 metodă din controller.
+
+
+											Clean Architecture
+
+Este un stil arhitectural propus de Robert C. Martin (cunoscut și ca "Uncle Bob") pentru a crea aplicații 
+ușor de întreținut, scalabile și independente de tehnologii externe.
+
+
+Principii de bază în Clean Architecture
+
+
+Independența față de framework-uri
+	→ Codul aplicației nu depinde de framework-uri externe. Framework-urile sunt detalii și pot fi înlocuite
+ușor.
+
+Testabilitate
+	→ Logica aplicației (regulile de business) poate fi testată fără să depindă de UI, baza de date, 
+sau alte servicii externe.
+
+Independență față de UI și Bază de Date
+	→ UI și baza de date sunt detalii periferice, nu afectează logica aplicației.
+
+Separarea responsabilităților
+	→ Fiecare strat (layer) are o responsabilitate clară și nu trebuie să încalce teritoriul altuia.
+
+Regula dependenței (Dependency Rule)
+	→ Codul sursă poate depinde doar spre interior (spre reguli de business). Niciodată invers
+
+
+
+Domain Layer (nucleul aplicației)
+	Conține entități și reguli de business.
+	Este total independent de orice tehnologie externă.
+
+Application Layer (use cases)
+	Conține cazurile de utilizare și logica specifică aplicației.
+	Apelează entitățile din Domain și definește interfețele pentru repo-uri.
+
+Infrastructure Layer
+	Implementări concrete (DB, fișiere, API calls).
+	Codul de aici implementează interfețele definite în Application.
+
+
+Presentation Layer
+	De obicei, API controllers, UI, frontend.
+	Apelează use case-urile din Application.
