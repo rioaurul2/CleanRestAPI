@@ -1,9 +1,11 @@
+@Tutorial_HostAddress = https://localhost:7023
 @host = https://localhost
 @port = 7023
 
-GET {{host}}:{{port}}/weatherforecast/
-Accept: application/json
-ProjectURL:{{$projectUrl}}
-Guid: {{$guid}}
+GET {{Tutorial_HostAddress}}/api/restaurants
+
+###
+
+GET {{Tutorial_HostAddress}}/api/restaurants/1
 
 ###

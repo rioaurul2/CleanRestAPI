@@ -1,3 +1,4 @@
+using TutorialApplication.Extensions;
 using TutorialInfrastructure.Extensions;
 using TutorialInfrastructure.Seeders;
 
@@ -14,6 +15,7 @@ namespace Tutorial
             builder.Services.AddControllers();
 
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

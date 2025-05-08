@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TutorialDomain.Repositories;
 using TutorialInfrastructure.Context;
+using TutorialInfrastructure.Repositories;
 using TutorialInfrastructure.Seeders;
 
 namespace TutorialInfrastructure.Extensions;
@@ -14,5 +16,6 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<TutorialDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<IRestaurantSeeders, RestaurantSeeders>();
+        services.AddScoped<IRestaurantRepository, RestaurantRepository>();
     }
 }
