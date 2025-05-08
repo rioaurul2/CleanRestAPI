@@ -11,7 +11,7 @@ namespace TutorialDomain.Entities
         public string? ContactEmail { get; set; }
         public string? ContactNumber { get; set; }
         public Address? Address { get; set; }
-        public List<Dish> Dishes {get; set; }
+        public List<Dish> Dishes { get; set; } = [];
 
     }
 }

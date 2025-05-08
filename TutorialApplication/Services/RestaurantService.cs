@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using TutorialApplication.DTO;
 using TutorialApplication.Interfaces;
 using TutorialDomain.Entities;
 using TutorialDomain.Repositories;
@@ -9,14 +11,19 @@ namespace TutorialApplication.Services
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ILogger<RestaurantService> _logger;
+        private readonly IMapper _mapper;
 
-        public RestaurantService(IRestaurantRepository restaurantRepository, ILogger<RestaurantService> logger)
+        public RestaurantService(
+            IRestaurantRepository restaurantRepository, 
+            ILogger<RestaurantService> logger,
+            IMapper mapper)
         {
             _restaurantRepository = restaurantRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Restaurant>> GetAllRestaurantsAsync()
+        public async Task<IEnumerable<RestaurantDto>> GetAllRestaurantsAsync()
         {
             _logger.LogInformation("Start process: Getting all restaurants");
 
@@ -24,10 +31,14 @@ namespace TutorialApplication.Services
 
             _logger.LogInformation("End process successfully: Getting all restaurants");
 
-            return restaurants;
+            //var restaurantsDto = restaurants.Select(r => RestaurantDto.FromEntity(r));
+            var restaurantsDto = _mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
+
+
+            return restaurantsDto;
         }
 
-        public async Task<Restaurant> GetRestaurantByIdAsync(int id)
+        public async Task<RestaurantDto> GetRestaurantByIdAsync(int id)
         {
             _logger.LogInformation($"Start process: Getting restaurant by {id}");
 
@@ -35,7 +46,12 @@ namespace TutorialApplication.Services
 
             _logger.LogInformation($"End process successfully: Getting restaurant by {id}");
 
-            return restaurant;
+            //var restaurantDto = RestaurantDto.FromEntity(restaurant);
+
+            var restaurantDto = _mapper.Map<RestaurantDto?>(restaurant);
+
+
+            return restaurantDto;
         }
     }
 }
