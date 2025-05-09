@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TutorialApplication.DTO;
 using TutorialApplication.Interfaces;
 
 namespace Tutorial.Controllers
@@ -25,13 +26,22 @@ namespace Tutorial.Controllers
         public async Task<IActionResult> GetRestaurantById(int id) 
         {
             var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
-
             if(restaurant is null)
             {
                 return NotFound();
             }
 
             return Ok(restaurant);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRestaurant([FromBody] CreateRetaurantDto createdRestaurnat)
+        {
+            var id = await _restaurantService.AddRestaurantAsync(createdRestaurnat);
+
+            var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
+
+            return CreatedAtAction(nameof(GetRestaurantById), new { id }, null);
         }
 
     }

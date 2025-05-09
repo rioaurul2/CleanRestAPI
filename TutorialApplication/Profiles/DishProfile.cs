@@ -9,6 +9,8 @@ namespace TutorialApplication.Profiles
         public DishProfile()
         {
             CreateMap<Dish, DishDto>();
+            CreateMap<DishDto, Dish>();
+
         }
     }
 }

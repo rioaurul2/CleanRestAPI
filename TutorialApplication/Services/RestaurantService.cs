@@ -38,7 +38,7 @@ namespace TutorialApplication.Services
             return restaurantsDto;
         }
 
-        public async Task<RestaurantDto> GetRestaurantByIdAsync(int id)
+        public async Task<RestaurantDto?> GetRestaurantByIdAsync(int id)
         {
             _logger.LogInformation($"Start process: Getting restaurant by {id}");
 
@@ -50,8 +50,20 @@ namespace TutorialApplication.Services
 
             var restaurantDto = _mapper.Map<RestaurantDto?>(restaurant);
 
-
             return restaurantDto;
+        }
+
+        public async Task<int> AddRestaurantAsync(CreateRetaurantDto createdRestaurant)
+        {
+            _logger.LogInformation($"Start process: Creating restaurant");
+
+            var restaurant = _mapper.Map<Restaurant>(createdRestaurant);
+
+            var id = await _restaurantRepository.AddRestaurantAsync(restaurant);
+
+            _logger.LogInformation($"End process successfully: Creating restaurant");
+
+            return id;
         }
     }
 }

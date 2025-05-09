@@ -31,4 +31,13 @@ internal class RestaurantRepository : IRestaurantRepository
 
         return restaurant!;
     }
+
+    public async Task<int> AddRestaurantAsync(Restaurant restaurant)
+    {
+        _dbContext.Restaurants.Add(restaurant);
+
+        await _dbContext.SaveChangesAsync();
+
+        return restaurant.Id;
+    }
 }
