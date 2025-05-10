@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using TutorialApplication.Interfaces;
 using TutorialApplication.Services;
+using TutorialApplication.Validators;
 
 namespace TutorialApplication.Extensions
 {
@@ -10,6 +12,7 @@ namespace TutorialApplication.Extensions
         {
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssembly(typeof(CreateRestaurantDtoValidator).Assembly);
         }
     }
 }

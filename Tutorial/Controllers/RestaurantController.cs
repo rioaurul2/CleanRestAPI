@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using TutorialApplication.DTO;
 using TutorialApplication.Interfaces;
 
@@ -35,9 +36,23 @@ namespace Tutorial.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRestaurant([FromBody] CreateRetaurantDto createdRestaurnat)
+        public async Task<IActionResult> CreateRestaurant(
+            [FromBody] CreateRestaurantDto createdRestaurant,
+            [FromServices] IValidator<CreateRestaurantDto> validator)
         {
-            var id = await _restaurantService.AddRestaurantAsync(createdRestaurnat);
+            var result = await validator.ValidateAsync(createdRestaurant);
+
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            var id = await _restaurantService.AddRestaurantAsync(createdRestaurant);
 
             var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
 

@@ -53,7 +53,7 @@ namespace TutorialApplication.Services
             return restaurantDto;
         }
 
-        public async Task<int> AddRestaurantAsync(CreateRetaurantDto createdRestaurant)
+        public async Task<int> AddRestaurantAsync(CreateRestaurantDto createdRestaurant)
         {
             _logger.LogInformation($"Start process: Creating restaurant");
 
