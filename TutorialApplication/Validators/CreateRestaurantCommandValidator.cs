@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using TutorialApplication.DTO;
+using TutorialApplication.Services.Commands;
 
 namespace TutorialApplication.Validators;
 
-public class CreateRestaurantDtoValidator : AbstractValidator<CreateRestaurantDto>
+public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
 {
-    public CreateRestaurantDtoValidator()
+    public CreateRestaurantCommandValidator()
     {
         RuleFor(dto => dto.Name)
             .Length(3, 100);

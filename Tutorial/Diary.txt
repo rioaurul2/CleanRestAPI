@@ -145,3 +145,11 @@ Infrastructure Layer
 Presentation Layer
 	De obicei, API controllers, UI, frontend.
 	Apelează use case-urile din Application.
+
+
+
+	CQRS (Command Query Responsibility Segregation)
+
+		Este un pattern arhitectural folosit în dezvoltarea de aplicații, care separă operațiile de citire
+(Query) de cele de scriere (Command). Acest model este util în aplicații complexe, unde logica de citire
+este semnificativ diferită de cea de scriere.

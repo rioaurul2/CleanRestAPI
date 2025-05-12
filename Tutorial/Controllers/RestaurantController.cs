@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TutorialApplication.DTO;
-using TutorialApplication.Interfaces;
+using TutorialApplication.Services.Commands;
+using TutorialApplication.Services.Handlers;
+using TutorialApplication.Services.Queries;
 
 namespace Tutorial.Controllers
 {
@@ -9,25 +11,26 @@ namespace Tutorial.Controllers
     [Route("api/restaurants")]
     public class RestaurantController : ControllerBase
     {
-        private readonly IRestaurantService _restaurantService;
+        private readonly IMediator _mediator;
 
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IMediator mediator)
         {
-            _restaurantService = restaurantService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() 
+        public async Task<IActionResult> GetAll()
         {
-            var restaurants = await _restaurantService.GetAllRestaurantsAsync();
+            var restaurants = await _mediator.Send(new GetAllRestaurantsQuery());
             return Ok(restaurants);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRestaurantById(int id) 
+        public async Task<IActionResult> GetRestaurantById(int id)
         {
-            var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
-            if(restaurant is null)
+            var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));
+
+            if (restaurant is null)
             {
                 return NotFound();
             }
@@ -37,8 +40,8 @@ namespace Tutorial.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateRestaurant(
-            [FromBody] CreateRestaurantDto createdRestaurant,
-            [FromServices] IValidator<CreateRestaurantDto> validator)
+            [FromBody] CreateRestaurantCommand createdRestaurant,
+            [FromServices] IValidator<CreateRestaurantCommand> validator)
         {
             var result = await validator.ValidateAsync(createdRestaurant);
 
@@ -52,12 +55,55 @@ namespace Tutorial.Controllers
                 return BadRequest(ModelState);
             }
 
-            var id = await _restaurantService.AddRestaurantAsync(createdRestaurant);
+            var id = await _mediator.Send(createdRestaurant);
 
-            var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
+            var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));
 
             return CreatedAtAction(nameof(GetRestaurantById), new { id }, null);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRestaurant([FromRoute] int id)
+        {
+
+            var isDeleted = await _mediator.Send(new DeleteRestaurantCommand(id));
+
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return Ok($"Object deleted");
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateRestaurant(
+            [FromRoute] int id, 
+            UpdateRestaurantCommand command,
+            [FromServices] IValidator<UpdateRestaurantCommand> validator)
+        {
+
+            var result = await validator.ValidateAsync(command);
+
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            command.Id = id;
+            var isUpdated = await _mediator.Send(command);
+
+            if (!isUpdated)
+            {
+                return NotFound();
+            }
+
+            return Ok($"Object Updated");
+        }
     }
 }

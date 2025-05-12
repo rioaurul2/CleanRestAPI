@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
 
-namespace TutorialApplication.DTO
+namespace TutorialApplication.Services.Commands
 {
-    public class CreateRestaurantDto
+    public class CreateRestaurantCommand : IRequest<int>
     {
         public string Name { get; set; } = default!;
         public string Category { get; set; } = default!;
