@@ -1,3 +1,5 @@
+using Serilog;
+using Serilog.Events;
 using TutorialApplication.Extensions;
 using TutorialInfrastructure.Extensions;
 using TutorialInfrastructure.Seeders;
@@ -16,6 +18,10 @@ namespace Tutorial
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
+            builder.Host.UseSerilog((context, configuration) => configuration
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
+            .WriteTo.Console(outputTemplate: "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine}{Message:lj}{NewLine}{Exception}"));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

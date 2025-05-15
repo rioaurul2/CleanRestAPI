@@ -20,7 +20,7 @@ namespace TutorialApplication.Services.Handlers
 
         public async Task<bool> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Update restaurant with id : {request.Id}");
+            _logger.LogInformation($"Update restaurant with id : {request.Id} with new values {request}");
 
             var  restaurant = await _restaurantRepository.GetByIdAsync(request.Id);
 

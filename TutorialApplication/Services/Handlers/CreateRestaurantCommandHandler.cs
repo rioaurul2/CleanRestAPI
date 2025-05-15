@@ -24,7 +24,7 @@ namespace TutorialApplication.Services.Handlers
 
         public async Task<int> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Start process: Creating restaurant");
+            _logger.LogInformation("Start process: Creating restaurant {@request}", request);
 
             var restaurant = _mapper.Map<Restaurant>(request);
 
