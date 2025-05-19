@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TutorialApplication.DTO;
 using TutorialApplication.Services.Commands;
 using TutorialApplication.Services.Handlers;
 using TutorialApplication.Services.Queries;
@@ -19,13 +20,14 @@ namespace Tutorial.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
             var restaurants = await _mediator.Send(new GetAllRestaurantsQuery());
             return Ok(restaurants);
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantDto))]
         public async Task<IActionResult> GetRestaurantById(int id)
         {
             var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));
