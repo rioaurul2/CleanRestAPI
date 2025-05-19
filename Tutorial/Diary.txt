@@ -163,3 +163,20 @@ Serilog este o bibliotecă de logging foarte populară pentru .NET, cunoscută p
 	Sinks – suportă scrierea logurilor în multe destinații: fișiere, console, baze de date, Seq, Elasticsearch, etc.
 	Configurabilitate ridicată – poate fi configurat prin cod sau fișier (ex: appsettings.json).
 	Integrări bune – se integrează ușor cu ASP.NET Core, .NET Generic Host, etc.
+
+ 
+
+					Middleware
+
+	Sunt componente software care intervin între cererea (request) primită de la client și răspunsul (response) 
+generat de aplicație. Ele sunt folosite pentru a procesa, modifica sau filtra cererile și răspunsurile într-o 
+aplicație web.
+
+📌 În .NET (ASP.NET Core), middleware-urile:
+	Sunt componente care fac parte din pipeline-ul de procesare a cererilor HTTP.
+	Fiecare middleware poate:
+		procesa cererea (ex: autentificare, logare, redirecționare);
+		decide dacă va trimite un răspuns imediat sau va apela următorul middleware;
+		modifica răspunsul care vine înapoi.
+
+

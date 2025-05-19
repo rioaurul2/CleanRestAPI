@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TutorialApplication.DTO;
 using TutorialApplication.Services.Commands;
-using TutorialApplication.Services.Handlers;
 using TutorialApplication.Services.Queries;
 
 namespace Tutorial.Controllers
@@ -28,6 +27,7 @@ namespace Tutorial.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RestaurantDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRestaurantById(int id)
         {
             var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));

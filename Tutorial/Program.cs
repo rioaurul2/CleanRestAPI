@@ -1,5 +1,6 @@
 using Serilog;
 using Serilog.Events;
+using Tutorial.Middlewares;
 using TutorialApplication.Extensions;
 using TutorialInfrastructure.Extensions;
 using TutorialInfrastructure.Seeders;
@@ -26,11 +27,17 @@ namespace Tutorial
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
             var app = builder.Build();
 
             var scope = app.Services.CreateScope();
             var seeders = scope.ServiceProvider.GetRequiredService<IRestaurantSeeders>();
             await seeders.Seed();
+
+            //Middlewares
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
