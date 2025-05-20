@@ -28,6 +28,7 @@ namespace Tutorial
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
+            builder.Services.AddScoped<TotalLoggingMiddleware>();
 
             var app = builder.Build();
 
@@ -38,6 +39,7 @@ namespace Tutorial
             //Middlewares
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<TotalLoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
