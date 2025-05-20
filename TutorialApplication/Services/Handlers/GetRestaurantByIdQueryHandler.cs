@@ -3,11 +3,13 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.DTO;
 using TutorialApplication.Services.Queries;
+using TutorialDomain.Entities;
+using TutorialDomain.Exceptions;
 using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
 {
-    public class GetRestaurantByIdQueryHandler : IRequestHandler<GetRestaurantByIdQuery, RestaurantDto?>
+    public class GetRestaurantByIdQueryHandler : IRequestHandler<GetRestaurantByIdQuery, RestaurantDto>
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ILogger<GetRestaurantByIdQueryHandler> _logger;
@@ -23,15 +25,20 @@ namespace TutorialApplication.Services.Handlers
             _mapper = mapper;
         }
 
-        public async Task<RestaurantDto?> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
+        public async Task<RestaurantDto> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Start process: Getting restaurant by {request.Id}");
 
             var restaurant = await _restaurantRepository.GetByIdAsync(request.Id);
 
+            if ( restaurant == null )
+            {
+                throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
+            }
+
             _logger.LogInformation($"End process successfully: Getting restaurant by {request.Id}");
 
-            var restaurantDto = _mapper.Map<RestaurantDto?>(restaurant);
+            var restaurantDto = _mapper.Map<RestaurantDto>(restaurant);
 
             return restaurantDto;
         }

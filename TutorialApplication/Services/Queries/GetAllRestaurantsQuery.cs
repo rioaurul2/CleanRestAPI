@@ -1,6 +1,4 @@
-﻿
-
-using MediatR;
+﻿using MediatR;
 using TutorialApplication.DTO;
 
 namespace TutorialApplication.Services.Queries

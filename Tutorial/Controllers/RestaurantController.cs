@@ -98,12 +98,8 @@ namespace Tutorial.Controllers
             }
 
             command.Id = id;
-            var isUpdated = await _mediator.Send(command);
 
-            if (!isUpdated)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(command);
 
             return Ok($"Object Updated");
         }

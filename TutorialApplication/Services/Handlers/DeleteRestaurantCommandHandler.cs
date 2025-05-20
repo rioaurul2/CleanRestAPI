@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.Services.Commands;
+using TutorialDomain.Entities;
+using TutorialDomain.Exceptions;
 using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
@@ -27,7 +29,7 @@ namespace TutorialApplication.Services.Handlers
 
             if (restaurant == null)
             {
-                return false;
+                throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
             }
 
             await _restaurantRepository.DeleteAsync(restaurant);

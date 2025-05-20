@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Http;
+using TutorialDomain.Exceptions;
+
 namespace Tutorial.Middlewares
 {
     public class ErrorHandlingMiddleware : IMiddleware
@@ -15,6 +18,13 @@ namespace Tutorial.Middlewares
             try
             {
                 await next.Invoke(context);
+            }
+            catch(NotFoundException notfound)
+            {
+                _logger.LogWarning(notfound.Message);
+
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(notfound.Message);
             }
             catch (Exception ex) 
             {

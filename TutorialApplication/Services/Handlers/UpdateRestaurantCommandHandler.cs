@@ -2,11 +2,13 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.Services.Commands;
+using TutorialDomain.Entities;
+using TutorialDomain.Exceptions;
 using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
 {
-    public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, bool>
+    public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand>
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ILogger<UpdateRestaurantCommandHandler> _logger;
@@ -18,7 +20,7 @@ namespace TutorialApplication.Services.Handlers
             _restaurantRepository = restaurantRepository;
         }
 
-        public async Task<bool> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Update restaurant with id : {request.Id} with new values {request}");
 
@@ -26,15 +28,13 @@ namespace TutorialApplication.Services.Handlers
 
             if (restaurant == null)
             {
-                return false;
+                throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
             }
 
             restaurant.HasDelivery = request.HasDelivery;
             restaurant.Name = request.Name;
 
             await _restaurantRepository.UpdateAsync(restaurant);
-
-            return true;
         }
     }
 }
