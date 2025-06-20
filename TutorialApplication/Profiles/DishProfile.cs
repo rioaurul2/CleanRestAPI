@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TutorialApplication.DTO;
+using TutorialApplication.Services.Commands;
 using TutorialDomain.Entities;
 
 namespace TutorialApplication.Profiles
@@ -10,6 +11,7 @@ namespace TutorialApplication.Profiles
         {
             CreateMap<Dish, DishDto>();
             CreateMap<DishDto, Dish>();
+            CreateMap<CreateDishCommand, Dish>();
 
         }
     }

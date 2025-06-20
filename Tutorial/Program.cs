@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Serilog;
 using Serilog.Events;
 using Tutorial.Middlewares;
@@ -29,6 +30,8 @@ namespace Tutorial
 
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
             builder.Services.AddScoped<TotalLoggingMiddleware>();
+            builder.Services.AddFluentValidationAutoValidation();
+
 
             var app = builder.Build();
 
