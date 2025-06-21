@@ -2,7 +2,7 @@
 
 namespace TutorialApplication.Services.Commands
 {
-    public class CreateDishCommand : IRequest
+    public class CreateDishCommand : IRequest<int>
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;

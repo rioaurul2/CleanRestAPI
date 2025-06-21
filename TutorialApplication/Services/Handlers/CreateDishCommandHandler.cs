@@ -8,7 +8,7 @@ using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
 {
-    public class CreateDishCommandHandler : IRequestHandler<CreateDishCommand>
+    public class CreateDishCommandHandler : IRequestHandler<CreateDishCommand, int>
     {
         private readonly ILogger<CreateDishCommandHandler> _logger;
         private readonly IRestaurantRepository _restaurantRepository;
@@ -27,7 +27,7 @@ namespace TutorialApplication.Services.Handlers
 
         }
 
-        public async Task Handle(CreateDishCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateDishCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Start the proces of creating a dish {@DishRequest}", request);
 
@@ -42,7 +42,7 @@ namespace TutorialApplication.Services.Handlers
 
             var result = await _dishesRepository.Create(dish);
 
-            Console.WriteLine(result);
+            return result;
         }
     }
 }
