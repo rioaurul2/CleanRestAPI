@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TutorialDomain.Entities;
 
 namespace TutorialInfrastructure.Context
 {
-    internal class TutorialDbContext : DbContext
+    internal class TutorialDbContext : IdentityDbContext<User>
     {
         public TutorialDbContext(DbContextOptions<TutorialDbContext> options) : base(options)
         {

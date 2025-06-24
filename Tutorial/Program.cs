@@ -3,6 +3,7 @@ using Serilog;
 using Serilog.Events;
 using Tutorial.Middlewares;
 using TutorialApplication.Extensions;
+using TutorialDomain.Entities;
 using TutorialInfrastructure.Extensions;
 using TutorialInfrastructure.Seeders;
 
@@ -55,6 +56,7 @@ namespace Tutorial
 
             app.UseAuthorization();
 
+            app.MapIdentityApi<User>();
 
             app.MapControllers();
 
