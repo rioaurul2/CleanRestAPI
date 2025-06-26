@@ -1,6 +1,5 @@
-using FluentValidation.AspNetCore;
 using Serilog;
-using Serilog.Events;
+using Tutorial.Extensions;
 using Tutorial.Middlewares;
 using TutorialApplication.Extensions;
 using TutorialDomain.Entities;
@@ -21,19 +20,11 @@ namespace Tutorial
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
+            builder.AddPresentation();
             builder.Host.UseSerilog((context, configuration) => 
             configuration
                 .ReadFrom.Configuration(context.Configuration));
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddScoped<ErrorHandlingMiddleware>();
-            builder.Services.AddScoped<TotalLoggingMiddleware>();
-            builder.Services.AddFluentValidationAutoValidation();
-
-
+            
             var app = builder.Build();
 
             var scope = app.Services.CreateScope();
@@ -56,7 +47,7 @@ namespace Tutorial
 
             app.UseAuthorization();
 
-            app.MapIdentityApi<User>();
+            app.MapGroup("api/identity").MapIdentityApi<User>();
 
             app.MapControllers();
 
