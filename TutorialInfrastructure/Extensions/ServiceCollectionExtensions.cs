@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using TutorialDomain.Entities;
 using TutorialDomain.Repositories;
 using TutorialInfrastructure.Context;

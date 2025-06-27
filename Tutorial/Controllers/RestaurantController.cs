@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TutorialApplication.DTO;
 using TutorialApplication.Services.Commands;
@@ -7,6 +8,7 @@ using TutorialApplication.Services.Queries;
 
 namespace Tutorial.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/restaurants")]
     public class RestaurantController : ControllerBase
@@ -30,6 +32,7 @@ namespace Tutorial.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRestaurantById(int id)
         {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "<id claim tyoe>")!.Value;
             var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));
 
             if (restaurant is null)

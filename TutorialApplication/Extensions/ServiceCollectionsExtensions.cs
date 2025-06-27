@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using TutorialApplication.User;
 using TutorialApplication.Validators;
 
 namespace TutorialApplication.Extensions
@@ -12,6 +13,10 @@ namespace TutorialApplication.Extensions
             services.AddValidatorsFromAssembly(typeof(CreateRestaurantCommandValidator).Assembly);
             services.AddValidatorsFromAssembly(typeof(CreateDishCommandValidator).Assembly);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+            services.AddScoped<IUserContext, UserContext>();
+
+            services.AddHttpContextAccessor();
         }
     }
 }
