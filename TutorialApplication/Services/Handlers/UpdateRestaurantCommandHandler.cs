@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.Services.Commands;
 using TutorialDomain.Entities;
