@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorialApplication.DTO;
 using TutorialApplication.Services.Commands;
 using TutorialApplication.Services.Queries;
+using TutorialDomain.Constants;
 
 namespace Tutorial.Controllers
 {
@@ -44,6 +45,7 @@ namespace Tutorial.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.Owner)]
         public async Task<IActionResult> CreateRestaurant(
             [FromBody] CreateRestaurantCommand createdRestaurant,
             [FromServices] IValidator<CreateRestaurantCommand> validator)

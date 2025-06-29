@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+using TutorialDomain.Constants;
 using TutorialDomain.Entities;
 using TutorialInfrastructure.Context;
 
@@ -24,6 +26,24 @@ namespace TutorialInfrastructure.Seeders
                     await _dbContext.SaveChangesAsync();
                 }
             }
+
+            if (!_dbContext.Roles.Any())
+            {
+                var roles = GetRoles();
+                _dbContext.Roles.AddRange(roles);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
+        private IEnumerable<IdentityRole> GetRoles()
+        {
+            List<IdentityRole> roles = [
+                    new (UserRoles.User),
+                    new(UserRoles.Ownwer),
+                    new(UserRoles.Admin)
+                ];
+
+            return roles;
         }
 
         private List<Restaurant> GetRestaurants()

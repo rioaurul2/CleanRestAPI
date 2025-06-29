@@ -29,6 +29,7 @@ namespace Tutorial
 
             var scope = app.Services.CreateScope();
             var seeders = scope.ServiceProvider.GetRequiredService<IRestaurantSeeders>();
+
             await seeders.Seed();
 
             //Middlewares

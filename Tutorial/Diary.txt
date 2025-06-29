@@ -180,3 +180,18 @@ aplicație web.
 		modifica răspunsul care vine înapoi.
 
 
+		Autorizare
+Autorizarea asigura 
+	Securitate
+	Intimitate
+	Imbunatateste experienta utilizatorului
+
+Accesul asupra resurselor se poate face pe baza de
+
+RBAC (Role-Based Access Control) – 
+controlul accesului se face pe baza rolurilor atribuite utilizatorilor. 
+De exemplu, un utilizator cu rolul „Admin” are acces la mai multe resurse decât unul cu rolul „User”.
+
+ABAC (Attribute-Based Access Control) – 
+controlul accesului se face pe baza atributelor (ale utilizatorului, resursei, contextului etc.). 
+De exemplu, se poate permite accesul doar în funcție de ora din zi, locație, tipul documentului etc.

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TutorialDomain.Entities;
 using TutorialDomain.Repositories;
 using TutorialInfrastructure.Context;
@@ -16,7 +17,9 @@ public static class ServiceCollectionExtensions
         .UseSqlServer(connectionString)
         .EnableSensitiveDataLogging());
 
-        services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<TutorialDbContext>();
+        services.AddIdentityApiEndpoints<User>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<TutorialDbContext>();
 
         services.AddScoped<IRestaurantSeeders, RestaurantSeeders>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
