@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TutorialDomain.Entities;
 using TutorialDomain.Repositories;
+using TutorialInfrastructure.Authorization;
+using TutorialInfrastructure.Authorization.Requirements;
 using TutorialInfrastructure.Context;
 using TutorialInfrastructure.Repositories;
 using TutorialInfrastructure.Seeders;
@@ -19,10 +22,18 @@ public static class ServiceCollectionExtensions
 
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole>()
+            .AddClaimsPrincipalFactory<TutorialUserClaimsPrincipalFactory>()
             .AddEntityFrameworkStores<TutorialDbContext>();
 
         services.AddScoped<IRestaurantSeeders, RestaurantSeeders>();
         services.AddScoped<IRestaurantRepository, RestaurantRepository>();
         services.AddScoped<IDishesRepository, DishesRepository>();
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim(AppClaimsTypes.Nationality, AllowedValues.AllowedNationalities))
+            .AddPolicy(PolicyNames.HasRoNationality, builder => builder.RequireClaim(AppClaimsTypes.Nationality, AllowedValues.AllowedRo))
+            .AddPolicy(PolicyNames.HasBirthDate, builder => builder.RequireClaim(AppClaimsTypes.DateOfBirth))
+            .AddPolicy(PolicyNames.AtLeast20Years, builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+
+        services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
     }
 }
