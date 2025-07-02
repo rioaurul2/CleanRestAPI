@@ -6,6 +6,7 @@ public static class PolicyNames
     public const string HasRoNationality = "HasRoNationality";
     public const string HasBirthDate = "HasBirthDate";
     public const string AtLeast20Years = "AtLeast20Years";
+    public const string OwnerHasTwoRestaurants = "OwnerHasTwoRestaurants";
 }
 
 public static class AppClaimsTypes

@@ -6,5 +6,7 @@ namespace TutorialDomain.Entities
     {
         public DateTime? DateOfBirth { get; set; }
         public string? Nationality { get; set; }
+
+        public List<Restaurant> OwnedRestaurants { get; set; } = [];
     }
 }

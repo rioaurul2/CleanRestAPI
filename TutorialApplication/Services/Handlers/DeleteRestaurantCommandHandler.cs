@@ -2,8 +2,10 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.Services.Commands;
+using TutorialDomain.Constants;
 using TutorialDomain.Entities;
 using TutorialDomain.Exceptions;
+using TutorialDomain.Interfaces;
 using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
@@ -12,13 +14,16 @@ namespace TutorialApplication.Services.Handlers
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ILogger<DeleteRestaurantCommandHandler> _logger;
+        private readonly IRestaurantAuthorizationService _restaurantAuthorizationService;
 
         public DeleteRestaurantCommandHandler(
               IRestaurantRepository restaurantRepository,
-              ILogger<DeleteRestaurantCommandHandler> logger)
+              ILogger<DeleteRestaurantCommandHandler> logger,
+              IRestaurantAuthorizationService restaurantAuthorizationService)
         {
             _restaurantRepository = restaurantRepository;
             _logger = logger;
+            _restaurantAuthorizationService = restaurantAuthorizationService;
         }
 
         async Task<bool> IRequestHandler<DeleteRestaurantCommand, bool>.Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
@@ -32,8 +37,12 @@ namespace TutorialApplication.Services.Handlers
                 throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
             }
 
-            await _restaurantRepository.DeleteAsync(restaurant);
+            if(!_restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Delete))
+            {
+                throw new ForbidException();
+            }
 
+            await _restaurantRepository.DeleteAsync(restaurant);
             return true;
         }
     }

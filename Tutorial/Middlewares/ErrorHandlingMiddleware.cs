@@ -26,6 +26,12 @@ namespace Tutorial.Middlewares
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notfound.Message);
             }
+            catch (ForbidException)
+            {
+
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync("Access forbidden");
+            }
             catch (Exception ex) 
             {
                 _logger.LogError(ex, ex.Message);

@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using TutorialApplication.Services.Commands;
+using TutorialDomain.Constants;
 using TutorialDomain.Entities;
 using TutorialDomain.Exceptions;
+using TutorialDomain.Interfaces;
 using TutorialDomain.Repositories;
 
 namespace TutorialApplication.Services.Handlers
@@ -11,12 +13,15 @@ namespace TutorialApplication.Services.Handlers
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly ILogger<UpdateRestaurantCommandHandler> _logger;
+        private readonly IRestaurantAuthorizationService _restaurantAuthorizationService;
 
         public UpdateRestaurantCommandHandler(IRestaurantRepository restaurantRepository,
-            ILogger<UpdateRestaurantCommandHandler> logger)
+            ILogger<UpdateRestaurantCommandHandler> logger,
+            IRestaurantAuthorizationService restaurantAuthorizationService)
         {
             _logger = logger;
             _restaurantRepository = restaurantRepository;
+            _restaurantAuthorizationService = restaurantAuthorizationService;
         }
 
         public async Task Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
@@ -32,6 +37,11 @@ namespace TutorialApplication.Services.Handlers
 
             restaurant.HasDelivery = request.HasDelivery;
             restaurant.Name = request.Name;
+
+            if (!_restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Update))
+            {
+                throw new ForbidException();
+            }
 
             await _restaurantRepository.UpdateAsync(restaurant);
         }
