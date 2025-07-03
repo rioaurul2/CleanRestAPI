@@ -12,7 +12,6 @@ namespace TutorialDomain.Entities
         public string? ContactNumber { get; set; }
         public Address? Address { get; set; }
         public List<Dish> Dishes { get; set; } = [];
-
         public User Owner { get; set; } = default!;
         public string OwnerId { get; set; } = default!;
 

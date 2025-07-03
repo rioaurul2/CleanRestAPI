@@ -21,7 +21,7 @@ public class CreateMultipleRestaurantsRequrementsHandler : AuthorizationHandler<
 
         var restaurants = await _restaurantRepository.GetAllAsync();
 
-        var userRestaurants = restaurants.Count(r => r.OwnerId == user.ID);
+        var userRestaurants = restaurants.Count(r => r.OwnerId == user!.ID);
 
         if(userRestaurants >= requirement.RestaurantsNo)
         {

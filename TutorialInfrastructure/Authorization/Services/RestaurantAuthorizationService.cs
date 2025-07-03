@@ -20,7 +20,7 @@ public class RestaurantAuthorizationService : IRestaurantAuthorizationService
     {
         var user = _userContext.GetCurentUser();
 
-        _logger.LogInformation($"Authorize Operation {resourceOperation} on {restaurant.Name} by user {user.Email}");
+        _logger.LogInformation($"Authorize Operation {resourceOperation} on {restaurant.Name} by user {user!.Email}");
 
         if (resourceOperation == ResourceOperation.Read || resourceOperation == ResourceOperation.Create)
         {

@@ -27,7 +27,7 @@ namespace TutorialApplication.Services.Handlers
         {
             _logger.LogInformation("Start process: Getting all restaurants");
 
-            var restaurants = await _restaurantRepository.GetAllAsync();
+            var restaurants = await _restaurantRepository.GetAllFilteredAsync(request.SearchPhrase!);
 
             _logger.LogInformation("End process successfully: Getting all restaurants");
 

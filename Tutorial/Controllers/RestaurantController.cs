@@ -22,9 +22,10 @@ namespace Tutorial.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll([FromQuery] GetAllRestaurantsQuery query)
         {
-            var restaurants = await _mediator.Send(new GetAllRestaurantsQuery());
+            var restaurants = await _mediator.Send(query);
             return Ok(restaurants);
         }
 

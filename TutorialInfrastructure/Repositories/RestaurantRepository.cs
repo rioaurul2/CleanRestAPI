@@ -23,6 +23,18 @@ internal class RestaurantRepository : IRestaurantRepository
         return restaurants;
     }
 
+    public async Task<IEnumerable<Restaurant>> GetAllFilteredAsync(string? searcedPhrase)
+    {
+        var searPhraseLower = searcedPhrase?.ToLower();
+
+        var restaurants = await _dbContext.Restaurants
+            .Include(r => r.Dishes)
+            .Where(r => searPhraseLower == null || r.Name.ToLower().Contains(searPhraseLower))
+            .ToListAsync();
+
+        return restaurants;
+    }
+
     public async Task<Restaurant> GetByIdAsync(int id)
     {
         var restaurant = await _dbContext.Restaurants
