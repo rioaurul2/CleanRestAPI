@@ -23,16 +23,22 @@ internal class RestaurantRepository : IRestaurantRepository
         return restaurants;
     }
 
-    public async Task<IEnumerable<Restaurant>> GetAllFilteredAsync(string? searcedPhrase)
+    public async Task<(IEnumerable<Restaurant>, int)> GetAllFilteredAsync(string? searcedPhrase, int pageNumber, int pageSize)
     {
         var searPhraseLower = searcedPhrase?.ToLower();
 
-        var restaurants = await _dbContext.Restaurants
+        var baseQuery = _dbContext.Restaurants
             .Include(r => r.Dishes)
-            .Where(r => searPhraseLower == null || r.Name.ToLower().Contains(searPhraseLower))
+            .Where(r => searPhraseLower == null || r.Name.ToLower().Contains(searPhraseLower));
+
+        var totalCount = await baseQuery.CountAsync();
+
+        var restaurants = await baseQuery
+            .Skip(pageSize * (pageNumber - 1))
+            .Take(pageSize)
             .ToListAsync();
 
-        return restaurants;
+        return (restaurants, totalCount);
     }
 
     public async Task<Restaurant> GetByIdAsync(int id)
