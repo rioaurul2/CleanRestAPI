@@ -5,11 +5,13 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutorial", "Tutorial.csproj", "{330CB131-7A7F-4F1B-AE67-F9812F54F766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialDomain", "..\TutorialDomain\TutorialDomain.csproj", "{263A20D0-C018-495F-BCE6-82EC651668ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TutorialDomain", "..\TutorialDomain\TutorialDomain.csproj", "{263A20D0-C018-495F-BCE6-82EC651668ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialApplication", "..\TutorialApplication\TutorialApplication.csproj", "{DA32BBD9-B2BD-495D-86AD-1D326CCABBB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TutorialApplication", "..\TutorialApplication\TutorialApplication.csproj", "{DA32BBD9-B2BD-495D-86AD-1D326CCABBB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialInfrastructure", "..\TutorialInfrastructure\TutorialInfrastructure.csproj", "{94FC1DB2-FEE7-4A41-BBB6-2B3609647BFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TutorialInfrastructure", "..\TutorialInfrastructure\TutorialInfrastructure.csproj", "{94FC1DB2-FEE7-4A41-BBB6-2B3609647BFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorialApplication.Tests", "..\TutorialApplication.Tests\TutorialApplication.Tests.csproj", "{1C93A588-1197-4D60-A849-468E7CE9F289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{94FC1DB2-FEE7-4A41-BBB6-2B3609647BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FC1DB2-FEE7-4A41-BBB6-2B3609647BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94FC1DB2-FEE7-4A41-BBB6-2B3609647BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C93A588-1197-4D60-A849-468E7CE9F289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C93A588-1197-4D60-A849-468E7CE9F289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C93A588-1197-4D60-A849-468E7CE9F289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C93A588-1197-4D60-A849-468E7CE9F289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
