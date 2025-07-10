@@ -29,6 +29,5 @@ public class UserContext(IHttpContextAccessor _httpContextAccessor) : IUserConte
         var dateOfBirth = dateOfBirthString == null ? (DateTime?)null : DateTime.ParseExact(dateOfBirthString, "yyy-MM--dd", CultureInfo.InvariantCulture);
 
         return new CurrentUser(userId, email, roles, nationality, dateOfBirth);
-
     }
 }
